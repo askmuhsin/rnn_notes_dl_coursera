@@ -1,0 +1,39 @@
+RNN
+## -----------------------------------------------------------------------------
+Applications
+  speech recognition
+  music generation
+  sentiment classification
+  DNA sequence analysis
+  video activity recognition
+  name entity recognition
+    identifying peoples names, countries, currency, and so on for classification,
+    categorization, tagging and so on.
+## -----------------------------------------------------------------------------
+NOTATIONS
+eg
+  name entity recognition
+  x:  Harry Potter and Hermione Granger invented a new spell
+  y:  1     1       0   1       1       0        0  0     0
+
+  x<t> --> temporal input sequence with index t. x<1> to x<9> in above eg. || Tx = 9
+  y<t> --> temporal label sequence with index t.                           || Ty = 9
+
+  x(i)<t> --> tth elment in ith sample.
+
+## -----------------------------------------------------------------------------
+NLP representing words.
+  step 1 : come up with a vocabulary, or dictionary.
+        eg: [aaron, ..., and, ..., bus, ......, zulu]
+        say a dictionary on 10k words.
+        100k to 1M dictionary are common in industry
+  step 2 : One hot representation to represent each of the words.
+            each vector for each word will be the length of the vocabulary,
+            with all values 0 except for the word in question.
+          Now convert x<1> to x<t> into One hot encoder.
+  step 2.1 : What if the sequence presents a new word that is not in vocab?
+              Invent a fake word/token/unknown word denoted as <UNK>
+
+## -----------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
