@@ -9,7 +9,7 @@ Applications
   name entity recognition
     identifying peoples names, countries, currency, and so on for classification,
     categorization, tagging and so on.
-  
+
 ## -----------------------------------------------------------------------------
 NOTATIONS
 eg
@@ -34,6 +34,7 @@ NLP representing words.
           Now convert x<1> to x<Tx> into One hot encoder.
   step 2.1 : What if the sequence presents a new word that is not in vocab?
               Invent a fake word/token/unknown word denoted as <UNK>
+  <EOS> or end of sentence token can be used to denote the same.
 
 ## -----------------------------------------------------------------------------
 WHY RNN?
@@ -88,9 +89,31 @@ Backpropagation in RNN
 
   Backpropagation through time. (from right to left)
 
+## -----------------------------------------------------------------------------
+Types of RNN
+  *Tx and Ty are not always the same size.
+  *Many to many architecture works for Tx=Ty. (eg. name entity recognition)
+  *Many to many could be of other variant, for eg. in machine translation, say
+  from english to arbic, the number of words to represent a sentence can be
+  different. Tx>=<Ty. An encoder and decoder architecture can be used here.
+
+  *Many to one architecture would work for sentiment analysis, where Tx can be
+  a long sentence and Ty a number denoting the sentiment(say 5 star rating).
+
+  *One to Many architecture would work for music generation.
+
+  *One to one is just a simple nn.
 
 ## -----------------------------------------------------------------------------
-## -----------------------------------------------------------------------------
+Language model and sequence generation.
+  *Speech recognition uses language model to choose the likely words.
+  *What is the probability of a sentence. P(sentence)=?
+
+Building language model.
+  Training set : Large corpus of English text.
+
+10k way softmax output.
+
 ## -----------------------------------------------------------------------------
 ## -----------------------------------------------------------------------------
 ## -----------------------------------------------------------------------------
