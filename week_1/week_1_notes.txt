@@ -9,6 +9,7 @@ Applications
   name entity recognition
     identifying peoples names, countries, currency, and so on for classification,
     categorization, tagging and so on.
+  
 ## -----------------------------------------------------------------------------
 NOTATIONS
 eg
@@ -30,10 +31,66 @@ NLP representing words.
   step 2 : One hot representation to represent each of the words.
             each vector for each word will be the length of the vocabulary,
             with all values 0 except for the word in question.
-          Now convert x<1> to x<t> into One hot encoder.
+          Now convert x<1> to x<Tx> into One hot encoder.
   step 2.1 : What if the sequence presents a new word that is not in vocab?
               Invent a fake word/token/unknown word denoted as <UNK>
 
+## -----------------------------------------------------------------------------
+WHY RNN?
+  Standard ANN with x<Tx> --(hidden layers)--> y<Ty> tends not to work well with sequence models.
+    REASON 1 : inputs and outputs can be different length in different examples.
+    REASON 2 : doesn't share features learned across different positions of text.
+
+## -----------------------------------------------------------------------------
+What is RNN?
+  *RNNs are processed from left to right (or first time step to last)
+  *The parameters W_ax are shared among all layers.
+  *W_ax parameters governing mapping between x and y.
+  *W_aa parameters governing horizontal connection
+  *W_ya parameters governing output predictions
+
+         y<1>         y<2>
+          ||           ||
+          ||           ||
+  a<0>--->||---a<1>--->||--a<2>---> .... till x<Tx>
+          ||           ||
+          ||           ||
+          ||           ||
+         x<1>         x<2>
+
+One issue with this model is that only information from the previous
+step is used for predictions. words following might carry meaning in prediction.
+  eg: He said, "Teddy Roosvelt was a great President".
+      He said, "Teddy bears are on sale".
+  SOLUTION : biderction RNNs.
+
+## -----------------------------------------------------------------------------
+Forward propagation
+  1.  a<0> = 0
+  2.  a<1> = g(W_aa * a<0> + W_ax * x<1> + b_a),    g() -> tanh/relu
+  3.  y<1> = g(W_ya * a<1> + b_y),                  g() -> sigmoid/softmax
+
+GENERAL FORM:
+    a<t> = g(W_aa * a<t-1> + W_ax * x<t> + b_a)
+    y<t> = g(W_ya * a<t> + b_y)
+
+SIMPLIFIED
+    a<t> = g(Wa[a<t-1>, x<t>] + b_a)
+        W_ax and W_aa are stacked into 1 matrix.
+
+## -----------------------------------------------------------------------------
+Backpropagation in RNN
+  Loss function (cost associated with a single time step, or single word)
+    L<t>(y_hat<t>, y<t>) = -y<t> * log(y_hat<t>) + (1-y<t>) * log(1-y_hat<t>)
+      cross entropy loss.
+  Loss (overall)
+    L(y_hat, y) = sumOf(L<t>(y_hat<t>, y<t>))
+
+  Backpropagation through time. (from right to left)
+
+
+## -----------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 ## -----------------------------------------------------------------------------
 ## -----------------------------------------------------------------------------
 ## -----------------------------------------------------------------------------
