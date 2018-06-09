@@ -142,6 +142,8 @@ Based on papers by, Cho et. al., 2014, Chung et al., 2014
 
   c<t> = Gamma_u * c~<t> + (1 - Gamma_u) * c<t-1>
 
+For the signal to backpropagate without vanishing, we need c<t> to be highly dependant on c<t−1>.
+
 ## -----------------------------------------------------------------------------
 Full GRU
   c~<t> = tanh(Wc[Gamma_r * c<t-1>, x<t>] + b_c)
@@ -159,10 +161,43 @@ based on paper by Schmidhuber 1997
   c<t> = Gamma_u * c~<t> + Gamma_f * c<t-1>
   a<t> = Gamma_o * tanh (c<t>)
 
-## -----------------------------------------------------------------------------
+the GRU's Gamma_r plays a different role than the LSTM's Gamma_f and Gamma_u.
 
 ## -----------------------------------------------------------------------------
+Bi-directional RNN (BRNN)
+  y<1>          y<2>          y<3>          y<4>
+    |             |             |             |
+  a<1>    -->   a<2>    -->   a<3>    -->   a<4>
+  a<1>    <--   a<2>    <--   a<3>    <--   a<4>
+    |             |             |             |
+  x<1>          x<2>          x<3>          x<4>
+
+  Acyclic graph
+
+  for NLP problems BRNN with LSTM are very useful.
+
+  The entire sequence of information is required before prediction.
+  For real time applications other networks are used.
+
 ## -----------------------------------------------------------------------------
-## -----------------------------------------------------------------------------
+Deep RNNs
+  a[l]<t>
+    l-layer
+    t-time
+
+                    y<1>          y<2>          y<3>          y<4>
+                      |             |             |             |
+      a[3]<0> ----> |---|  ---->  |---|  ---->  |---|  ---->  |---|
+                      |             |             |             |
+                      |             |             |             |
+      a[2]<0> ----> |---|  ---->  |---|  ---->  |---|  ---->  |---|
+                      |             |             |             |
+                      |             |             |             |
+      a[1]<0> ----> |---|  ---->  |---|  ---->  |---|  ---->  |---|
+                      |             |             |             |
+                    x<1>          x<2>          x<3>          x<4>
+
+    Wa_1, Wa_2, Wa_3 and corresponding biases are shared within all layers.
+
 ## -----------------------------------------------------------------------------
 ## -----------------------------------------------------------------------------
