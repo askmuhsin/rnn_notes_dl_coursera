@@ -115,5 +115,42 @@ Building language model.
 10k way softmax output.
 
 ## -----------------------------------------------------------------------------
+Sample novel sequences.
+Word level vs character level RNN.
+  Character level: PROS :: Not need to worry about <UNK>
+                   CONS :: Longer sequences. (misses long range dependencies)
+
+
+## -----------------------------------------------------------------------------
+Vanishing gradients with RNN
+  Vanilla RNNs are not good at capturing long term dependencies.
+Exploding gradients are easier to spot, and not a huge issue with RNN
+  If it happens gradient clipping can be used to overcome this.
+
+## -----------------------------------------------------------------------------
+Gated Recurrent Unit (GRU)
+  modification to RNN hidden layers.
+  a<t> = g(Wa[a<t-1>, x<t>] + b_a)  <-- Vanilla hidden layer
+
+Based on papers by, Cho et. al., 2014, Chung et al., 2014
+
+  c = memory cell
+  c<t> = a<t>
+
+  c~<t> = tanh(Wc[c<t-1>, x<t>] + b_c)
+  Gamma_u = sigmoid(Wu[c<t-1>, x<t>] + b_u)
+
+  c<t> = Gamma_u * c~<t> + (1 - Gamma_u) * c<t-1>
+
+  [image_link]()
+
+## -----------------------------------------------------------------------------
+Full GRU
+  c~<t> = tanh(Wc[Gamma_r * c<t-1>, x<t>] + b_c)
+  Gamma_u = sigmoid(Wu[c<t-1>, x<t>] + b_u)
+  Gamma_r = sigmoid(Wr[c<t-1>, x<t>] + b_r)
+  c<t> = Gamma_u * c~<t> + (1 - Gamma_u) * c<t-1>
+
+## -----------------------------------------------------------------------------
 ## -----------------------------------------------------------------------------
 ## -----------------------------------------------------------------------------
